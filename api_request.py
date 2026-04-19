@@ -3,9 +3,6 @@ import requests
 import os
 from dotenv import load_dotenv
 
-# Load environment variables from .env file
-load_dotenv()
-
 
 # make a request to api and return content
 def make_request(api_url):
@@ -19,22 +16,25 @@ def make_request(api_url):
         print("API response received successfully")
         # weather json data
         data = response.json()
-        return data
+    
+        return data  # json data
 
     except requests.exceptions.RequestException as e:
         print(f"An error occured: {e}")
 
 
 if __name__ == "__main__":
+
+    # Load environment variables from .env file
+    load_dotenv()
+
     # Get API key from environment variable
     api_key = os.getenv("WEATHERSTACK_API_KEY")
 
     if not api_key:
-        raise ValueError(
-            "WEATHERSTACK_API_KEY not found. Please set it in your .env file."
-        )
+        raise ValueError("WEATHERSTACK_API_KEY not found. Please set it in your .env file.")
 
-    api_url = f"http://api.weatherstack.com/current?access_key={api_key}&query=New York"
+    api_url = f"https://api.weatherstack.com/current?access_key={api_key}&query=New York"
 
     # get weather data
 
